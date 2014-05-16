@@ -1,7 +1,7 @@
 <?php
 
-class zendtest_Model_Organizations extends Zend_Db_Table_Abstract
+class zendtest_Model_Organization extends Zend_Db_Table_Row_Abstract
 {
-    protected $_tableclass = 'zendtest_Model_DbTable_Organizations';
-
+    protected $_tableclass = 'zendtest_Model_DbTable_Organization';
+    
 }

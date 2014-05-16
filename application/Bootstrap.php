@@ -37,5 +37,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $registry = Zend_Registry::getInstance();
         $registry->constants = new Zend_Config($this->getApplication()->getOption('constants'));
     }
+    
+    protected function _initPagination(){
+        Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginatecontrol.phtml');
+    }
+    
 
 }

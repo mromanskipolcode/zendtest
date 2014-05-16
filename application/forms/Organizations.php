@@ -1,4 +1,3 @@
-
 <?php
 class zendtest_Form_Organizations extends Zend_Form
 {
@@ -70,8 +69,8 @@ class zendtest_Form_Organizations extends Zend_Form
                 'class' => 'genText',
                 'required' => true,
                 'multioptions' => array(
-                    'employee' => 'Active',
-                    'contractor' =>'Inactive'
+                    '1' => 'Active',
+                    '0' => 'Inactive'
                 )
             ));
 

@@ -43,7 +43,7 @@ class LoginController extends Zend_Controller_Action
         if ($authResult) {
             $user = $adapter->getResultRowObject(null,'password');
             $auth ->getStorage() ->write($user);
-            if($auth->getIdentity()->status!='A'){
+            if($auth->getIdentity()->status!='1'){
                 $auth->clearIdentity();
                 $this->_redirect($this->view->url(
                     array (

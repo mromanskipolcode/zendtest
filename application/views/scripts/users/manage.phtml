@@ -1,0 +1,33 @@
+
+<a class="btn btn-success" href="<?php echo $this->url(array('controller'=>'users','action'=>'addnew'));?>"><i class="icon-success-sign icon-white"></i>Add new</a>
+
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Organizations managament (page: <?php echo $this->paginator->getCurrentPageNumber().' / '.$this->paginator->getPages()->pageCount;?>) </div>
+  <div class="panel-body">
+    <p>This is Zend paginator with <?php echo $this->paginator->getItemCountPerPage(); ?> items per page
+    </p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+      <thead>
+          <tr><th>Internal ID</th><th>First name</th><th>Email</th><th>Last name</th><th>Status</th><th></th></tr>
+      </thead>
+      <?php
+      $items=$this->paginator->getCurrentItems();
+      
+      foreach($items as $key=>$value){
+          
+          echo sprintf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a href="%s/byid/%s">edit</a></td></tr>',
+                  $value['person_id'], $value['fname'], $value['lname'],
+                  $value['email'],
+                  ($value['status'] == 1)? 'Active':'Inactive',
+                  
+                  $this->url(array('controller' =>'users', 'action'=>'editexternal')), $value['person_id']);
+      }
+        ?>
+  </table>
+</div>
+<?php echo $this->paginationControl($this->paginator, 'Elastic', 'paginatecontrol.phtml'); ?>

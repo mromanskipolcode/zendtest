@@ -51,6 +51,7 @@ class OrganizationsController extends Zend_Controller_Action
     }
     
     public function addnewAction(){
+        $this ->_checkAcl('addnew');
         $form = new zendtest_Form_Organizations();
         if($this->_request->getPost()){
             if($form->isValid($this->_request->getPost())){
@@ -63,9 +64,47 @@ class OrganizationsController extends Zend_Controller_Action
                 $nrow->address_2 = $this->_request->getPost('address_2');
                 $nrow->city = $this->_request->getPost('city');
                 $nrow->postal_code = $this->_request->getPost('postal_code');
-                $nrow->status = $this->_request->getPost('postal_code');
+                $nrow->status = $this->_request->getPost('status');
                 $nrow->create_id = $auth ->getIdentity()->person_id;
                 $nrow->create_dt = date('Y-m-d H:i:s');
+                $nrow->modify_id = null;
+                $nrow->save();
+                $this->_redirect('organizations/manage');
+            }
+        }
+        $this->view->form=$form;
+    }
+    
+    public function editexternalAction(){
+        $this ->_checkAcl('edit');
+        $form = new zendtest_Form_Organizations();
+        $organization = new zendtest_Model_DbTable_Organization();
+        $row = $organization->fetchRow($organization->select()->where("organization_id=?",$this->_request->getParam('byid')));
+        //assign form values
+        $form->getElement('name')->setValue($row->name);
+        $form->getElement('address_1')->setValue($row->address_1);
+        $form->getElement('address_2')->setValue($row->address_2);
+        $form->getElement('city')->setValue($row->city);
+        $form->getElement('postal_code')->setValue($row->postal_code);
+        $form->getElement('status')->setValue($row->status);
+        
+        
+        
+        if($this->_request->getPost()){
+            if($form->isValid($this->_request->getPost())){
+                
+                $auth = Zend_Auth::getInstance();
+                $organizations = new zendtest_Model_DbTable_Organization();
+                $nrow = $row;
+                //$nrow = $organizations ->fetchRow("organization_id=?",$this->_request->getParam('byid'));
+                $nrow->name = $this->_request->getPost('name');
+                $nrow->address_1 = $this->_request->getPost('address_1');
+                $nrow->address_2 = $this->_request->getPost('address_2');
+                $nrow->city = $this->_request->getPost('city');
+                $nrow->postal_code = $this->_request->getPost('postal_code');
+                $nrow->status = $this->_request->getPost('status');
+                $nrow->modify_id = $auth ->getIdentity()->person_id;
+                $nrow->modify_dt = date('Y-m-d H:i:s');
                 $nrow->modify_id = null;
                 $nrow->save();
                 $this->_redirect('organizations/manage');

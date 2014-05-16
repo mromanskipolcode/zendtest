@@ -46,6 +46,8 @@ class UsersController extends Zend_Controller_Action
         $row = $person->fetchRow($person->select()->where("person_id=?",$this->_request->getParam('byid')));
         $form->getElement('fname')->setValue($row->fname);
         $form->getElement('lname')->setValue($row->lname);
+        $form->getElement('email')->setValue($row->email);
+        $form->getElement('type')->setValue($row->type);
         $form->getElement('phone_main')->setValue($row->phone_main);
         $form->getElement('phone_cell')->setValue($row->phone_cell);
         $form->getElement('address_1')->setValue($row->address_1);

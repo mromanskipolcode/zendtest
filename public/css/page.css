@@ -2,3 +2,12 @@ fieldset{
     padding: 5px;
     border: 1px solid #EDEDED;
 }
+
+#fieldset-logingroup{
+    display: block;
+    width: 400px;
+    margin: auto;
+}
+input{
+    display: block;
+    width: 100%;

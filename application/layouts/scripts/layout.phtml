@@ -1,0 +1,26 @@
+<?php echo $this->doctype() ?>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php echo $this->headTitle() ?> 
+        <?php echo $this->headLink() ?>
+        <?php echo $this->headStyle() ?>
+    </head>
+    <body>
+        <div id="content-page">
+            <?php echo $this->header() ?> 
+            <div class="container">
+                <div class="col-md-3">
+                <?php //echo $this->menu() ?>
+                </div>
+                <div class="col-md-9">
+                <?php echo $this->layout()->content ?>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div id="footer">
+                <?php echo $this->headScript(); ?>
+            </div>
+        </div>
+    </body>
+</html>

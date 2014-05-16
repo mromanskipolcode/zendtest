@@ -29,7 +29,7 @@ class LoginController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
         $adapter = new Zend_Auth_Adapter_DbTable(
             Zend_Db_Table_Abstract::getDefaultAdapter(),
-            'persons',
+            'person',
             'email',
             'password'
         );

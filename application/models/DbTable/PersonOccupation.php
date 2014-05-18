@@ -1,8 +1,8 @@
 <?php
-class zendtest_Model_DbTable_Organization extends Zend_Db_Table_Abstract
+class zendtest_Model_DbTable_PersonOccupation extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'organization';
-    protected $_rowClass = 'zendtest_Model_Organization';
+    protected $_name = 'person_occupation';
+    protected $_rowClass = 'zendtest_Model_PersonOccupation';
     protected $_referenceMap = array(
         'Creator' => array(
             'columns' => array('create_id'),

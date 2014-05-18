@@ -34,6 +34,18 @@ class Zend_View_Helper_Menu extends Zend_View_Helper_Abstract
                         ), 'default',true
                     )
         );
+        
+        $menu['administrator'][] = array(
+            'key'=>'manageoccupations',
+            'label' => 'Manage occupations',
+            'url' => $this->view->url(
+                    array (
+                        'controller'     => 'occupations',
+                        'action'        => 'manage'
+                        ), 'default',true
+                    )
+        );
+        
         $menu['administrator'][] = array(
             'key'=>'editprofile',
             'label' => 'Edit profile',

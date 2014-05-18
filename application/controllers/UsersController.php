@@ -24,13 +24,20 @@ class UsersController extends Zend_Controller_Action
         return true;
     }
     
+    /**
+     * List all users action
+     * @author Mikolaj Romanski <mikolaj.romanski@polcode.net>
+     */
     public function manageAction(){
         $this ->_checkAcl('view');
         $organization = new zendtest_Model_DbTable_User();
         
         $select = $organization->select('person');
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
-        $paginator ->setItemCountPerPage(3);
+        
+        $elements = Zend_Registry::getInstance()->constants->elementsperpage;
+        $paginator ->setItemCountPerPage(empty($elements) ? '4' : $elements);
+        
         $request = $this->getParam('page');
         $paginator->setCurrentPageNumber(empty($request) ? '1' : $request);
         
@@ -38,6 +45,10 @@ class UsersController extends Zend_Controller_Action
         $this ->view->paginator = $paginator;
     }
     
+    /**
+     * Edit user action
+     * @author Mikolaj Romanski <mikolaj.romanski@polcode.net>
+     */
     public function editexternalAction(){
         $this ->_checkAcl('edit');
         $form = new zendtest_Form_Profileedit();
@@ -79,6 +90,8 @@ class UsersController extends Zend_Controller_Action
                 $row->city = $this->_request->getPost('city');
                 $row->postal_code = $this->_request->getPost('postal_code');
                 $row->status = $this->_request->getPost('status');
+                $row->modify_id = Zend_Auth::getInstance()->getIdentity()->person_id;
+                $row->modify_dt = date('Y-m-d H:i:s');
                 $pass = $this->_request->getPost('password');
                 if(!empty($pass)){
                     $salt = Zend_Registry::getInstance()->constants->salt;
@@ -92,6 +105,10 @@ class UsersController extends Zend_Controller_Action
         
     }
     
+    /**
+     * Create new user action
+     * @author Mikolaj Romanski <mikolaj.romanski@polcode.net>
+     */
     public function addnewAction(){
         $this ->_checkAcl('addnew');
         $form = new zendtest_Form_Profileedit();
@@ -110,6 +127,8 @@ class UsersController extends Zend_Controller_Action
                 $row->city = $this->_request->getPost('city');
                 $row->postal_code = $this->_request->getPost('postal_code');
                 $row->status = $this->_request->getPost('status');
+                $row->create_id = Zend_Auth::getInstance()->getIdentity()->person_id;
+                $row->create_dt = date('Y-m-d H:i:s');
                 $pass = $this->_request->getPost('password');
                 if(!empty($pass)){
                     $salt = Zend_Registry::getInstance()->constants->salt;

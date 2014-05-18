@@ -52,6 +52,13 @@ class LoginController extends Zend_Controller_Action
                         )
                     ));
             }
+            
+            $person = new zendtest_Model_DbTable_User();
+            //update last login
+            $row = $person->fetchRow($person->select()->where("person_id=?",  Zend_Auth::getInstance()->getIdentity()->person_id));
+            $row->last_login_dt=date('Y-m-d H:i:s');
+            $row->save();
+            
             $this->_redirect(array('controller' => 'index', 'action' => 'index'));
         }
     }

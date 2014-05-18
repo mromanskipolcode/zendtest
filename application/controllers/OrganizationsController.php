@@ -6,6 +6,11 @@ class OrganizationsController extends Zend_Controller_Action
     public function init(){
         $this->view->activeurl = 'manageorganizations';
     }
+    
+    /**
+     * List all organizations action
+     * @author Mikolaj Romanski <mikolaj.romanski@polcode.net>
+     */
     public function manageAction(){
         $this ->_checkAcl('view');
         $organization = new zendtest_Model_DbTable_Organization();
@@ -22,7 +27,10 @@ class OrganizationsController extends Zend_Controller_Action
                 
         
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
-        $paginator ->setItemCountPerPage(7);
+        
+        $elements = Zend_Registry::getInstance()->constants->elementsperpage;
+        $paginator ->setItemCountPerPage(empty($elements) ? '4' : $elements);
+        
         $request = $this->getParam('page');
         $paginator->setCurrentPageNumber(empty($request) ? '1' : $request);
         
@@ -50,6 +58,10 @@ class OrganizationsController extends Zend_Controller_Action
         return true;
     }
     
+    /**
+     * Create new organization action
+     * @author Mikolaj Romanski <mikolaj.romanski@polcode.net>
+     */
     public function addnewAction(){
         $this ->_checkAcl('addnew');
         $form = new zendtest_Form_Organizations();
@@ -75,6 +87,10 @@ class OrganizationsController extends Zend_Controller_Action
         $this->view->form=$form;
     }
     
+    /**
+     * Edit existing organization action
+     * @author Mikolaj Romanski <mikolaj.romanski@polcode.net>
+     */
     public function editexternalAction(){
         $this ->_checkAcl('edit');
         $form = new zendtest_Form_Organizations();
@@ -112,4 +128,5 @@ class OrganizationsController extends Zend_Controller_Action
         }
         $this->view->form=$form;
     }
+    
 }

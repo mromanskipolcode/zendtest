@@ -16,5 +16,9 @@ class zendtest_Model_DbTable_Organization extends Zend_Db_Table_Abstract
         )
     );
     
+    protected $_dependentTables = array(
+        'zendtest_Model_DbTable_PersonOrganization'
+    );
+    
 
 }

@@ -1,0 +1,62 @@
+<?php
+$this->headTitle()->prepend('Edit profile');
+?>
+<div id="content-body-login">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="big-form">
+                <h3>Edit profile</h3>
+                <?php echo $this->form ?>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="big-form">
+                <h3>Occupations relation configuration</h3>
+                <?php
+                    if(!empty($this->personRelations)) {
+                        echo '<div class="table-responsive"><table class="table">';
+    
+  
+                        foreach($this->personRelations as $value) {
+                            echo sprintf('<tr><td>%s</td><td>%s</td><td>%s</td><td><a href="%s/byid/%s">edit</a></tr>',
+                                    $value['occupation']['name'],
+                                    $value['data']['start_dt'],
+                                    ($value['data']['end_dt'] == '0000-00-00') ? 'Till now' : $value['data']['end_dt'],
+                                    $this->url(array(
+                                        'controller'=>'profile',
+                                        'action' => 'editrelation'
+                                        )),$value['data']['occupation_id']
+                                    );
+                        }
+                        echo '</table></div>';
+                    }
+                ?>
+                <a class="text-right btn btn-success" href="<?php echo $this->url(array('controller'=>'profile','action'=>'addnewoccupationrelation'));?>"><i class="icon-success-sign icon-white"></i>Add new</a>
+            </div>
+            <div id="big-form">
+                <h3>Organizations relation configuration</h3>
+                <?php
+                    if(!empty($this->personOrganizationRelations)) {
+                        echo '<div class="table-responsive"><table class="table">';
+    
+  
+                        foreach($this->personOrganizationRelations as $value) {
+                            echo sprintf('<tr><td>%s</td><td>%s</td><td>%s</td><td><a href="%s/byid/%s">edit</a></tr>',
+                                    $value['occupation']['name'],
+                                    $value['data']['start_dt'],
+                                    ($value['data']['end_dt'] == '0000-00-00') ? 'Till now' : $value['data']['end_dt'],
+                                    $this->url(array(
+                                        'controller'=>'profile',
+                                        'action' => 'editrelationorganization'
+                                        )),$value['data']['organization_id']
+                                    );
+                        }
+                        echo '</table></div>';
+                    }
+                ?>
+            </div>
+            <a class="text-right btn btn-success" href="<?php echo $this->url(array('controller'=>'profile','action'=>'addneworganizationrelation'));?>"><i class="icon-success-sign icon-white"></i>Add new</a>
+        </div>
+    </div>
+</div>
+

@@ -68,7 +68,7 @@ class Zend_View_Helper_Menu extends Zend_View_Helper_Abstract
             )
         );
 
-        $menu['subcontractor'] = $menu['emplyee'] = $menu['contractor'];
+        $menu['subcontractor'] = $menu['employee'] = $menu['contractor'];
 
 
         if(empty($menu[$auth ->getIdentity() -> type])) {

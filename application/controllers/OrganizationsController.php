@@ -121,7 +121,7 @@ class OrganizationsController extends Zend_Controller_Action
                 $nrow->status = $this->_request->getPost('status');
                 $nrow->modify_id = $auth ->getIdentity()->person_id;
                 $nrow->modify_dt = date('Y-m-d H:i:s');
-                $nrow->modify_id = null;
+                
                 $nrow->save();
                 $this->_redirect('organizations/manage');
             }

@@ -1,8 +1,8 @@
 <?php
-class zendtest_Model_DbTable_Occupation extends Zend_Db_Table_Abstract
+class zendtest_Model_DbTable_PersonOrganization extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'occupation';
-    protected $_rowClass = 'zendtest_Model_Occupation';
+    protected $_name = 'person_organization';
+    protected $_rowClass = 'zendtest_Model_PersonOrganization';
     protected $_referenceMap = array(
         'Person' => array(
             'columns' => array('person_id'),
@@ -19,14 +19,11 @@ class zendtest_Model_DbTable_Occupation extends Zend_Db_Table_Abstract
             'refTableClass' => 'zendtest_Model_DbTable_User',
             'refColumns' => array('person_id')
         ),
-        'Occupation' => array(
-            'columns' => array('occupation_id'),
-            'refTableClass' => 'zendtest_Model_DbTable_Occupation',
-            'refColumns' => array('occupation_id')
+        'Organization' => array(
+            'columns' => array('organization_id'),
+            'refTableClass' => 'zendtest_Model_DbTable_Organization',
+            'refColumns' => array('organization_id')
         )
-    );
-    protected $_dependentTables = array(
-        'zendtest_Model_DbTable_PersonOccupation'
     );
     
 

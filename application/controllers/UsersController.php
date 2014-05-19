@@ -54,6 +54,11 @@ class UsersController extends Zend_Controller_Action
         $form = new zendtest_Form_Profileedit();
         $person = new zendtest_Model_DbTable_User();
         
+        
+        
+
+        
+        
         $row = $person->fetchRow($person->select()->where("person_id=?",$this->_request->getParam('byid')));
         $form->getElement('fname')->setValue($row->fname);
         $form->getElement('lname')->setValue($row->lname);
@@ -65,6 +70,8 @@ class UsersController extends Zend_Controller_Action
         $form->getElement('address_2')->setValue($row->address_2);
         $form->getElement('city')->setValue($row->city);
         $form->getElement('postal_code')->setValue($row->postal_code);
+        $form->getElement('state_code')->setValue($row->state_code);
+        $form->getElement('country')->setValue($row->country);
         $form->getElement('status')->setValue($row->status);
         
         //change validators, because maybe we don't want to change password
@@ -89,6 +96,9 @@ class UsersController extends Zend_Controller_Action
                 $row->address_2 = $this->_request->getPost('address_2');
                 $row->city = $this->_request->getPost('city');
                 $row->postal_code = $this->_request->getPost('postal_code');
+                $row->country = $this->_request->getPost('country');
+                $row->state_code = $this->_request->getPost('state_code');
+                
                 $row->status = $this->_request->getPost('status');
                 $row->modify_id = Zend_Auth::getInstance()->getIdentity()->person_id;
                 $row->modify_dt = date('Y-m-d H:i:s');
@@ -112,6 +122,7 @@ class UsersController extends Zend_Controller_Action
     public function addnewAction(){
         $this ->_checkAcl('addnew');
         $form = new zendtest_Form_Profileedit();
+        
         if($this->_request->getPost()) {
             if($form->isValid($this->_request->getPost())) {
                 $person = new zendtest_Model_DbTable_User();
@@ -129,6 +140,9 @@ class UsersController extends Zend_Controller_Action
                 $row->status = $this->_request->getPost('status');
                 $row->create_id = Zend_Auth::getInstance()->getIdentity()->person_id;
                 $row->create_dt = date('Y-m-d H:i:s');
+                $row->country = $this->_request->getPost('country');
+                $row->state_code = $this->_request->getPost('state_code');
+                
                 $pass = $this->_request->getPost('password');
                 if(!empty($pass)){
                     $salt = Zend_Registry::getInstance()->constants->salt;
